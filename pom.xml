@@ -10,5 +10,72 @@
 
 
 
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.10</maven.compiler.source>
+        <maven.compiler.target>1.10</maven.compiler.target>
+        <org.apache.commons.commons-text.version>1.4</org.apache.commons.commons-text.version>
+    </properties>
+
+
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-text</artifactId>
+            <version>${org.apache.commons.commons-text.version}</version>
+        </dependency>
+    </dependencies>
+
+
+    <build>
+    <finalName>${project.name}</finalName>
+
+
+        <plugins>
+
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-jar-plugin</artifactId>
+            <version>3.0.0</version>
+            <configuration>
+                <archive>
+                    <manifest>
+                        <mainClass>ru.otus.khitrov2018_06.Main</mainClass>
+                    </manifest>
+                </archive>
+            </configuration>
+        </plugin>
+
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-assembly-plugin</artifactId>
+            <version>3.0.0</version>
+            <executions>
+                <execution>
+                    <id>my-maven-assembly-plugin</id>
+                    <phase>package</phase>
+                    <goals>
+                        <goal>single</goal>
+                    </goals>
+                </execution>
+            </executions>
+            <configuration>
+                <appendAssemblyId>true</appendAssemblyId>
+                <descriptorRefs>
+                    <descriptorRef>jar-with-dependencies</descriptorRef>
+                </descriptorRefs>
+                <archive>
+                    <manifest>
+                        <mainClass>ru.otus.khitrov2018_06.Main</mainClass>
+                    </manifest>
+                </archive>
+            </configuration>
+
+        </plugin>
+
+        </plugins>
+
+    </build>
+
 
 </project>
