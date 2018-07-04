@@ -15,10 +15,12 @@
         <maven.compiler.source>1.10</maven.compiler.source>
         <maven.compiler.target>1.10</maven.compiler.target>
         <org.apache.commons.commons-text.version>1.4</org.apache.commons.commons-text.version>
+        <net.sf.proguard.version>6.0.2</net.sf.proguard.version>
     </properties>
 
 
     <dependencies>
+
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-text</artifactId>
@@ -30,9 +32,7 @@
     <build>
     <finalName>${project.name}</finalName>
 
-
         <plugins>
-
         <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-jar-plugin</artifactId>
@@ -49,7 +49,7 @@
         <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-assembly-plugin</artifactId>
-            <version>3.0.0</version>
+            <version>3.1.0</version>
             <executions>
                 <execution>
                     <id>my-maven-assembly-plugin</id>
@@ -70,11 +70,49 @@
                     </manifest>
                 </archive>
             </configuration>
-
         </plugin>
 
-        </plugins>
+            <plugin>
+                <groupId>com.github.wvengen</groupId>
+                <artifactId>proguard-maven-plugin</artifactId>
+                <version>2.0.14</version>
 
+                <dependencies>
+                    <dependency>
+                        <groupId>net.sf.proguard</groupId>
+                        <artifactId>proguard-base</artifactId>
+                        <version>${net.sf.proguard.version}</version>
+                    </dependency>
+                </dependencies>
+
+
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>proguard</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <proguardVersion>${net.sf.proguard.version}</proguardVersion>
+                    <obfuscate>true</obfuscate>
+                    <injar>${project.name}.jar</injar>
+                    <outjar>${project.name}-small.jar</outjar>
+                    <outputDirectory>${project.build.directory}</outputDirectory>
+                    <options>
+                        <option>-keep public class ru.otus.khitrov2018_06.Main{public static void
+                            main(java.lang.String[]);}</option>
+                        <option>-dontwarn</option>
+                    </options>
+
+                    <libs>
+                        <lib>${java.home}/jmods/java.base.jmod</lib>
+                    </libs>
+
+                      </configuration>
+            </plugin>
+        </plugins>
     </build>
 
 
