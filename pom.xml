@@ -60,7 +60,7 @@
                 </execution>
             </executions>
             <configuration>
-                <appendAssemblyId>true</appendAssemblyId>
+                <appendAssemblyId>false</appendAssemblyId>
                 <descriptorRefs>
                     <descriptorRef>jar-with-dependencies</descriptorRef>
                 </descriptorRefs>
