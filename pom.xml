@@ -67,7 +67,7 @@
                                              </descriptorRefs>
 
                                              <archive>
-                                                 <manifest>j
+                                                 <manifest>
                                                      <mainClass>ru.otus.khitrov2018_06.Main</mainClass>
                                                  </manifest>
                                              </archive>
