@@ -6,9 +6,8 @@ import java.util.function.Supplier;
 
 class MemoryCalc{
 
-
    private long currentCalculation;
-
+   private int size = 20_000_000;
 
     private  long getMem() throws InterruptedException {
         System.gc();
@@ -19,7 +18,6 @@ class MemoryCalc{
 
  public void calculate(Supplier supplier) throws InterruptedException  {
 
-    int size = 20_000_000;
 
     long initialMem = getMem();
      Object[] array = new Object[size];
@@ -42,10 +40,9 @@ class MemoryCalc{
  public void calculateFullContainer(Supplier supplier) throws InterruptedException {
 
      List<? extends Object> filledArray = (List<? extends Object>) supplier.get();
-     int size = 20_000_000;
 
      long initialMem = getMem();
-     Object[] array  = new Object[size];
+     Object[] array  = new Object[size*filledArray.size()];
 
      long withRefMem = getMem();
 
@@ -63,8 +60,6 @@ class MemoryCalc{
 
  }
 
- public long getCurrentCalculation(){
-        return currentCalculation;
- }
+
 
 }
