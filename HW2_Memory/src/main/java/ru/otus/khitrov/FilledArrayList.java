@@ -5,14 +5,14 @@ import java.util.List;
 
 public class FilledArrayList {
 
-    private FilledArrayList(){
-    }
+   private FilledArrayList(){
+   }
 
 
-    public static List<Integer> getInstance(){
+    public static List<Integer> getInstance( int valuesNumber){
 
         List<Integer> filledArrayList = new ArrayList<>();
-        for (int i = 0; i <= 1; i++) {
+        for (int i = 0; i < valuesNumber; i++) {
             filledArrayList.add(i);
         }
 

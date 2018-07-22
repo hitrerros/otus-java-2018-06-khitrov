@@ -12,6 +12,7 @@ public class MemoryMain {
 
         MemoryCalc memoryCalc = new MemoryCalc();
 
+
         System.out.println("---Class with primitive types");
         Supplier<ItemForTestA> stringItemForTestA = ItemForTestA::getInstance;
         memoryCalc.calculate(stringItemForTestA);
@@ -27,6 +28,14 @@ public class MemoryMain {
         System.out.println("---Empty container");
         Supplier<List<Integer>> emptyArrayList = ArrayList::new;
         memoryCalc.calculate(emptyArrayList);
+        long calcforEmpty = memoryCalc.getCurrentCalculation();
+
+        System.out.println("---Filled container");
+        Supplier<List<Integer>> filledArrayList = () -> (  FilledArrayList.getInstance( 2 ));
+        memoryCalc.calculateFullContainer( filledArrayList );
+        long calcforFilled = memoryCalc.getCurrentCalculation();
+
+        System.out.println("Container grow assesment" + (calcforFilled - calcforEmpty) );
 
 
     }
