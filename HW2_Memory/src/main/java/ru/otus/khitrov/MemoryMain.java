@@ -31,11 +31,9 @@ public class MemoryMain {
         System.out.println("---Filled container grow");
 
         for (int i = 1; i<= 10; i++) {
-            System.out.println("Elements " + i);
-            final int v = i;
-            Supplier<List<Integer>> filledArrayList = () -> (FilledArrayList.getInstance(v));
-            memoryCalc.calculateFullContainer(filledArrayList);
-
+            final int c = i;
+            System.out.println("elements: " + c);
+            memoryCalc.calculate(() -> new ArrayList<Integer>(c));
         }
 
 
