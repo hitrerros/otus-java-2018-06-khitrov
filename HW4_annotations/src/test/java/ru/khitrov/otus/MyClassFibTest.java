@@ -9,25 +9,23 @@ public void beforeStart()  {
 }
 
 @Test
-public void testIssue1() {
+public void testIssue1() throws  AssertionException {
   MyClassFib myClassFib = new MyClassFib();
-  TUnitCore.assertEquals(  1, myClassFib.getFibonacci( 2 ) );
-  System.out.println("done");
+  TUnitCore.assertEquals(5, myClassFib.getFibonacci(2));
+  System.out.println("OK!");
 }
 
 
 @Test
-public void testIssue2() {
+public void testIssue2() throws  AssertionException  {
     MyClassFib myClassFib = new MyClassFib();
-    TUnitCore.assertEquals(  8, myClassFib.getFibonacci( 6 ) );
-    System.out.println("done");
+    TUnitCore.assertEquals(  8, myClassFib.getFibonacci( 6) );
+    System.out.println("OK!");
 }
 
 @After
 public void afterEndOfTest()  {
-    System.out.println("end of test Fibonacci number = " );
-
-
+    System.out.println("end of test Fibonacci number  " );
 }
 
 

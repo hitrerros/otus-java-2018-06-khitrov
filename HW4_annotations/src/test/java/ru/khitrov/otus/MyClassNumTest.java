@@ -12,19 +12,15 @@ public class MyClassNumTest {
     }
 
     @Test
-    public void testIssue1() {
+    public void testIssue1() throws  AssertionException  {
         MyClassNum myClassNum = new MyClassNum();
         TUnitCore.assertEquals(  3, myClassNum.getNumber() );
-        System.out.println("done");
+        System.out.println("OK!");
     }
-
-
 
     @After
     public void afterEndOfTest()  {
         System.out.println("end of test just number = " );
-
-
     }
 
 

@@ -70,7 +70,15 @@ public class ReflectionHelper {
             isAccessible = method.canAccess(object);
             method.setAccessible(true);
             return method.invoke(object, args);
-        } catch (IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
+        }
+        catch (InvocationTargetException e ){
+            if ( e.getTargetException() instanceof AssertionException) {
+                throw new AssertionException(e.getTargetException().getMessage());
+            } else {
+                e.printStackTrace();
+            }
+        }
+        catch (IllegalAccessException | NoSuchMethodException e  ) {
             e.printStackTrace();
         } finally {
             if (method != null && !isAccessible) {
