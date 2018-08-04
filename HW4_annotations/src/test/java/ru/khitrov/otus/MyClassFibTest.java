@@ -9,7 +9,7 @@ public void beforeStart()  {
 }
 
 @Test
-public void testIssue1() throws  AssertionException {
+public void testIssue1()  {
   MyClassFib myClassFib = new MyClassFib();
   TUnitCore.assertEquals(5, myClassFib.getFibonacci(2));
   System.out.println("OK!");
@@ -17,7 +17,7 @@ public void testIssue1() throws  AssertionException {
 
 
 @Test
-public void testIssue2() throws  AssertionException  {
+public void testIssue2()  {
     MyClassFib myClassFib = new MyClassFib();
     TUnitCore.assertEquals(  8, myClassFib.getFibonacci( 6) );
     System.out.println("OK!");

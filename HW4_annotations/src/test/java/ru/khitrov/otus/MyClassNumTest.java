@@ -12,7 +12,7 @@ public class MyClassNumTest {
     }
 
     @Test
-    public void testIssue1() throws  AssertionException  {
+    public void testIssue1()   {
         MyClassNum myClassNum = new MyClassNum();
         TUnitCore.assertEquals(  3, myClassNum.getNumber() );
         System.out.println("OK!");
