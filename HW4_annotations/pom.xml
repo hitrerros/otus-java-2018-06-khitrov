@@ -5,8 +5,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>ru.khitrov.otus</groupId>
-    <artifactId>hw3-myarraylist</artifactId>
+    <artifactId>hw4-annotations</artifactId>
     <version>2018-06</version>
+
     <build>
         <plugins>
             <plugin>
@@ -26,6 +27,7 @@
         <maven.compiler.source>1.10</maven.compiler.source>
         <maven.compiler.target>1.10</maven.compiler.target>
     </properties>
+
 
 
 
