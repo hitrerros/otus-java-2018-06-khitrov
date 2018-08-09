@@ -44,7 +44,6 @@ class GCListener implements  javax.management.NotificationListener  {
                     + info.getGcInfo().getEndTime());
 
             totalGcDuration += info.getGcInfo().getDuration();
-            long percent = totalGcDuration*1000L/info.getGcInfo().getEndTime();
 
         }
 
