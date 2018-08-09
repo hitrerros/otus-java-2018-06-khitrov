@@ -30,10 +30,8 @@ class GCListener implements  javax.management.NotificationListener  {
             long duration = info.getGcInfo().getDuration();
             String gctype = info.getGcAction();
             if ("end of minor GC".equals(gctype)) {
-                gctype = "YOUNG";
-                youngCollect++;
+                  youngCollect++;
             } else if ("end of major GC".equals(gctype)) {
-                gctype = "OLD";
                 oldCollect++;
             }
 
