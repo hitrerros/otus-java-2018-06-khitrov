@@ -4,56 +4,55 @@ import com.sun.management.GarbageCollectionNotificationInfo;
 
 import javax.management.Notification;
 import javax.management.openmbean.CompositeData;
+import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 class GCListener implements  javax.management.NotificationListener  {
 
-    private long totalGcDuration;
-    private int  youngCollect;
-    private int oldCollect;
-
+    private static Logger log = Logger.getLogger(GCListener.class.getName());
     private final String gcName;
+    private long startMinute, lastMinute, duration;
+    private  int numOfCollect;
 
     GCListener(String name){
         gcName = name;
+        startMinute = 0L;
+        lastMinute = 0L;
+        duration = 0L;
+        numOfCollect = 0;
     }
 
     @Override
     public void handleNotification(Notification notification, Object handback) {
 
-        System.out.println("GC Handled!");
-
         if (notification.getType().equals(GarbageCollectionNotificationInfo.GARBAGE_COLLECTION_NOTIFICATION)) {
             //get the information associated with this notification
             GarbageCollectionNotificationInfo info = GarbageCollectionNotificationInfo.from((CompositeData) notification.getUserData());
-            //get all the info and pretty print it
-            long duration = info.getGcInfo().getDuration();
-            String gctype = info.getGcAction();
-            if ("end of minor GC".equals(gctype)) {
-                  youngCollect++;
-            } else if ("end of major GC".equals(gctype)) {
-                oldCollect++;
+
+            startMinute = TimeUnit.MILLISECONDS.toMinutes(info.getGcInfo().getStartTime());
+
+            if  ( lastMinute!= startMinute ) {
+                if (numOfCollect > 0)
+                  log.log(Level.INFO, "Minute = " + String.valueOf(lastMinute+1)
+                                           + ", GC Type = " + gcName +
+                                           ", number of collections = " + numOfCollect +
+                                           ", duration = " + duration);
+                numOfCollect = 0;
+                duration  = 0;
+                lastMinute = startMinute;
             }
 
-            System.out.println("TYPE: " + gctype + ": - " + info.getGcInfo().getId()+
-                    " " + info.getGcName() + " (from " + info.getGcCause()+
-                    ") "+duration + " milliseconds; start-end times "
-                    + info.getGcInfo().getStartTime()+ "-"
-                    + info.getGcInfo().getEndTime());
-
-            totalGcDuration += info.getGcInfo().getDuration();
-
+            numOfCollect++;
+            duration += info.getGcInfo().getDuration();
+ /*
+            System.out.println("TYPE: " + gcName + ": - " + info.getGcInfo().getId()+
+                     " " + info.getGcName() + " (from " + info.getGcCause()+
+                     ") "+duration + " milliseconds; start-end times "
+                     + info.getGcInfo().getStartTime()+ "-"
+                     + info.getGcInfo().getEndTime());
+ */
         }
-
     }
-
-    public void GetFinalStatistics(){
-
-        System.out.println("Type: " + gcName );
-        if (youngCollect > 0)  System.out.println("Young collections: " + youngCollect);
-        if (oldCollect > 0)    System.out.println("Old   collections: " + oldCollect);
-        System.out.println("Total duration:" + totalGcDuration);
-
-    }
-
 }

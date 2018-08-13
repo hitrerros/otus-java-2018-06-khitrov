@@ -1,14 +1,19 @@
 package ru.otus.khitrov;
 
 import javax.management.NotificationEmitter;
+import java.io.IOException;
 import java.lang.management.GarbageCollectorMXBean;
 import java.lang.management.ManagementFactory;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+import java.util.logging.LogManager;
+import java.util.logging.Logger;
 
 public class GCMonitor {
-
-    private  List<GCListener> listeners = new ArrayList<>();
 
     public void runGCMonitor(){
 
@@ -18,28 +23,25 @@ public class GCMonitor {
             System.out.println(gcbean);
             NotificationEmitter emitter = (NotificationEmitter) gcbean;
             GCListener listener = new GCListener( gcbean.getName() );
-            listeners.add(listener);
             emitter.addNotificationListener(listener,null,null);
         }
     }
 
-    public void readListeners(){
-        for (GCListener listener : listeners){
-            listener.GetFinalStatistics();
-        }
-
-    }
 
 @SuppressWarnings("InfiniteLoopStatement")
     public static void main(String...args) throws InterruptedException {
 
     int size = 100_000;
 
-    System.out.println("Running GC monitor, PID = " + ManagementFactory.getRuntimeMXBean().getName());
-    GCMonitor gcMonitor = new GCMonitor();
-    gcMonitor.runGCMonitor();
+    try {
+        LogManager.getLogManager().readConfiguration(
+                GCMonitor.class.getResourceAsStream("/logging.properties"));
+    } catch (IOException e) {
+        System.err.println("Could not setup logger configuration: " + e.toString());
+    }
 
-    try  {
+        System.out.println("Running GC monitor, PID = " + ManagementFactory.getRuntimeMXBean().getName());
+        new GCMonitor().runGCMonitor();
 
         while (true) {
 
@@ -56,12 +58,8 @@ public class GCMonitor {
             }
 
             size += 100000;
-
-        }
-    } catch (OutOfMemoryError out) {
-          Thread.sleep(100);
-          gcMonitor.readListeners();
         }
     }
 }
+
 
