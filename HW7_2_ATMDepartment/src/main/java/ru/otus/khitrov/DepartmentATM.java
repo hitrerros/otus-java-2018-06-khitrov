@@ -16,7 +16,7 @@ public class DepartmentATM {
      public void doUICommand  (Consumer<String> cmd){
 
          while (true) {
-             System.out.print("Enter ID (Q - for quit): ");
+             System.out.print("Enter ID (Q - to quit this step): ");
              String deviceID = new Scanner(System.in).next();
 
              if ( deviceID.length() > 0) {
@@ -34,15 +34,15 @@ public class DepartmentATM {
      }
 
      private void launchATMDepartment() {
-         init_devices( );
-         encash_devices( );
-         show_balance( );
-         run_atm( );
-         undo_state( );
-         show_balance( );
+         initDevices();
+         encashDevices();
+         showBalance();
+         runATM();
+         undoState();
+         showBalance();
    }
 
-    private void run_atm() {
+    private void runATM() {
         System.out.println("run ATM ");
 
         doUICommand((deviceID)-> {
@@ -50,16 +50,16 @@ public class DepartmentATM {
             if (device == null)
                 throw new IllegalArgumentException("Device have not been initialized");
             else {
-                new UserInterfaceATM( device ).startUI();
+                new UserInterfaceATM(device).startUI();
             }
     });
     }
 
-    private void show_balance() {
+    private void showBalance() {
          eventATMProducer.balanceEvent( );
     }
 
-    private void init_devices() {
+    private void initDevices() {
          System.out.println("Initialization");
             doUICommand((deviceID)->{
                 System.out.print("Choose configuration (E - with 2000/200 banknotes, O - ordinary) ");
@@ -74,7 +74,7 @@ public class DepartmentATM {
             });
      }
 
-     private void encash_devices() {
+     private void encashDevices() {
          System.out.println("Encashement");
 
          doUICommand((deviceID)-> {
@@ -95,14 +95,14 @@ public class DepartmentATM {
                      if (tokens.charAt(0)=='S'){
                          if (initNominals.size() > 0){
                              device.encashement( initNominals );
-                             eventATMProducer.addListener( device );
+                             eventATMProducer.addListener(device);
                          };
                          return;
                      }
 
                      String[] tok = tokens.split(",");
                      if (tok.length == 2){
-                         Nominals reqNom = Nominals.getNominalValue( Integer.valueOf( tok[0] ) );
+                         Nominals reqNom = Nominals.getNominalValue(Integer.valueOf(tok[0]));
 
                          if (reqNom == null) throw new IllegalArgumentException("Invalid banknote nominal");
                          initNominals.put( reqNom, Integer.valueOf( tok[1] ) );
@@ -116,7 +116,7 @@ public class DepartmentATM {
 
 }
 
-     private void undo_state(){
+     private void undoState(){
          System.out.println("Recover initial state");
          eventATMProducer.undoEvent();
      }
