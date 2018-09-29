@@ -45,7 +45,7 @@ public class DeviceATMImpl implements  DeviceATM  {
         if ((cellEntry = storage.get( nominal )) == null)
             throw new  IllegalArgumentException( "This nominal is not supported");
 
-        storage.get( nominal ).addNotes( numOfNotes );
+        cellEntry.addNotes( numOfNotes );
         originator.saveState(  new DeviceATMState( storage )  );
     }
 
