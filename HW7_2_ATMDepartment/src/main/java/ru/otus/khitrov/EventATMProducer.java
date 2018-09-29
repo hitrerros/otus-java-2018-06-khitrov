@@ -26,11 +26,7 @@ public class EventATMProducer {
 
         int total = 0;
 
-        for ( DeviceATM listener : listeners )
-        {
-          total +=   listener.onShowBalance();
-        }
-
+        for ( DeviceATM listener : listeners )  total +=   listener.onShowBalance();
         System.out.println("Total balance:" + total );
     }
 }
