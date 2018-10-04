@@ -3,6 +3,8 @@ package ru.otus.khitrov;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import javax.json.JsonObject;
+
 public class MainMyKSON {
 
     private String json;
@@ -19,8 +21,8 @@ public class MainMyKSON {
 
         System.out.println("MyKSON generation: ");
         KSonParser kson = new KSonParser();
-        kson.parseObject( comObj );
-        json = kson.getJsonString();
+        JsonObject jsonOb = kson.parseObject( comObj );
+        json = KSonParser.getJsonString( jsonOb );
         System.out.println(json);
 
     }

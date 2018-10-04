@@ -14,8 +14,6 @@ import org.apache.commons.lang3.ClassUtils;
 
 public class KSonParser {
 
-    JsonObject jsonObj;
-
    private JsonObjectBuilder  parseAllObjects( Object  analyzeObject  ){
 
        JsonObjectBuilder jsonBuild = Json.createObjectBuilder();
@@ -127,19 +125,18 @@ public class KSonParser {
         jsonBuild.add(keyValue,jArray);
     }
 
-    public void parseObject( Object analyzeObject  ){
+    public JsonObject parseObject( Object analyzeObject  ){
         JsonObjectBuilder  jsonBuild = parseAllObjects(  analyzeObject );
-        jsonObj = jsonBuild.build();
+        return jsonBuild.build();
     }
 
-  public String getJsonString(){
+  public static String getJsonString( JsonObject jsonObj ){
       Objects.requireNonNull( jsonObj, "Not parsed yet" );
 
       StringWriter stWriter = new StringWriter();
       try (JsonWriter jsonWriter = Json.createWriter(stWriter)) {
          jsonWriter.writeObject( jsonObj );
       }
-
       return stWriter.toString();
   }
 
