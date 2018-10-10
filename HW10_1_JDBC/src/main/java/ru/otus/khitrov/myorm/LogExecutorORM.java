@@ -27,6 +27,7 @@ public class LogExecutorORM extends  LogExecutor {
         try (Statement stmt = connection.createStatement()) {
             for (String query: queries)  stmt.addBatch(query);
             stmt.executeBatch();
+            connection.commit();
       }
     }
 
