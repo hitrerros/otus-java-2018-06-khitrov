@@ -17,8 +17,9 @@ public class LogExecutorORM extends  LogExecutor {
         try (Statement stmt = connection.createStatement()) {
             stmt.execute(query, Statement.RETURN_GENERATED_KEYS);
             connection.commit();
-            ResultSet result = stmt.getGeneratedKeys();
-            return handler.handle(result);
+            try (ResultSet result = stmt.getGeneratedKeys()) {
+                return handler.handle(result);
+            }
         }
     }
 
