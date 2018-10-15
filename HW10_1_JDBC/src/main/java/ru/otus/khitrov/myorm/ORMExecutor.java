@@ -61,7 +61,12 @@ public class ORMExecutor {
 
     public <T extends DataSet>  long save(T user) throws Exception {
         LogExecutorORM exec = new LogExecutorORM(dbService.getConnection());
-        String strQuery = prepareStringForInsert(user);
+        String strQuery;
+
+        if ( (strQuery = prepareStringForInsert(user)) == null ){
+           throw new IllegalArgumentException("error while parsing table");
+        }
+
         Objects.requireNonNull(strQuery);
 
         return exec.execUpdate(strQuery, result -> {
