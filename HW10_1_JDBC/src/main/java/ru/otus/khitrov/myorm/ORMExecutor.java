@@ -67,8 +67,6 @@ public class ORMExecutor {
            throw new IllegalArgumentException("error while parsing table");
         }
 
-        Objects.requireNonNull(strQuery);
-
         return exec.execUpdate(strQuery, result -> {
             result.next();
             return result.getLong(1);
