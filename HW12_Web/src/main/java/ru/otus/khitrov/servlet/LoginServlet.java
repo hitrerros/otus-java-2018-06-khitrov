@@ -1,6 +1,7 @@
 package ru.otus.khitrov.servlet;
 
 import ru.otus.khitrov.base.DBService;
+import ru.otus.khitrov.template.TemplateProcessor;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -40,8 +41,8 @@ public class LoginServlet extends HttpServlet {
 
         if (requestLogin != null) {
             saveToSession(request, requestLogin); //request.getSession().getAttribute("login");
-            saveToServlet(request, requestLogin); //request.getAttribute("login");
-            saveToVariable( requestLogin ); //request.getAttribute("login");
+//            saveToServlet(request, requestLogin); //request.getAttribute("login");
+//            saveToVariable( requestLogin ); //request.getAttribute("login");
         }
 
         if (dbService != null) {

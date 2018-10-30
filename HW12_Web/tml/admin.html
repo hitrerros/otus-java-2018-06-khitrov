@@ -44,10 +44,20 @@ return false;
             <td>address</td>
             <td>phones</td>
         </tr>
-        ${items}
+
+        <#if items??>
+        <#list items as item>
+        <tr>
+            <td>${item.id}</td>
+            <td>${item.name}</td>
+            <td>${item.age}</td>
+            <td>${item.address}</td>
+            <td>${item.getPhonesAsString()}</td>
+        </tr>
+        </#list>
+        </#if>
     </table>
 
     <div>Total users: ${total}</div>
-
 </body>
 </html>

@@ -2,6 +2,7 @@ package ru.otus.khitrov.servlet;
 
 import ru.otus.khitrov.base.DBService;
 import ru.otus.khitrov.base.dataSets.UserDataSet;
+import ru.otus.khitrov.template.TemplateProcessor;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -30,6 +31,7 @@ public class AdminServlet extends HttpServlet {
         this(new TemplateProcessor());
     }
 
+/*
     private static String prepareUserListTable( List<UserDataSet> dataSets ) {
         StringBuilder strConst = new StringBuilder();
 
@@ -47,7 +49,7 @@ public class AdminServlet extends HttpServlet {
 
         return  strConst.toString();
     }
-
+*/
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -61,10 +63,9 @@ public class AdminServlet extends HttpServlet {
 
         try {
             if (action == null) {
-                String userFmtTable  = prepareUserListTable( dbService.readAll() );
-                prepareRespondPage( request,response, ADMIN_PAGE_TEMPLATE, userFmtTable );
+                prepareRespondPage( request,response, ADMIN_PAGE_TEMPLATE, dbService.readAll() );
             } else if ("add_user".equals(action)) {
-                prepareRespondPage( request,response, ADD_USER_PAGE_TEMPLATE, "" );
+                prepareRespondPage( request,response, ADD_USER_PAGE_TEMPLATE, null );
             }
 
         } catch (Exception e) {
@@ -78,15 +79,13 @@ public class AdminServlet extends HttpServlet {
 
         String action =  request.getParameter("action");
         DBService dbService = (DBService) request.getSession().getAttribute("dbService");
-        String userFmtTable;
+        List<UserDataSet> usrList;
 
         try {
          if ("find_user".equals( action )) {
-             UserDataSet usr;
-                usr = dbService.read(Long.valueOf(request.getParameter("f_user")));
-
-                userFmtTable =  ( usr == null ) ? "" : prepareUserListTable( List.of( usr ) );
-                prepareRespondPage( request,response, ADMIN_PAGE_TEMPLATE, userFmtTable );
+               UserDataSet   usr = dbService.read(Long.valueOf(request.getParameter("f_user")));
+               usrList = ( usr == null ) ? null  :  List.of( usr );
+               prepareRespondPage( request,response, ADMIN_PAGE_TEMPLATE, usrList );
             }
         else if ("added_user".equals( action )) {
 
@@ -95,9 +94,7 @@ public class AdminServlet extends HttpServlet {
                                                                   request.getParameter( "address"),
                                                                   request.getParameter( "phones"));
              dbService.save( dataSet );
-
-             userFmtTable = prepareUserListTable( dbService.readAll() );
-             prepareRespondPage( request,response, ADMIN_PAGE_TEMPLATE, userFmtTable );
+             prepareRespondPage( request,response, ADMIN_PAGE_TEMPLATE, dbService.readAll() );
 
         }
 
@@ -109,15 +106,14 @@ public class AdminServlet extends HttpServlet {
 }
 
     private void prepareRespondPage( HttpServletRequest request,
-                                            HttpServletResponse response,
-                                            String pageName,
-                                            String userFmtTable ) throws Exception {
+                                     HttpServletResponse response,
+                                     String pageName,
+                                     List<UserDataSet> usrList ) throws Exception {
 
         Map<String, Object> pageVariables = new HashMap<>();
         DBService dbService = (DBService) request.getSession().getAttribute( "dbService");
 
-
-        pageVariables.put("items", userFmtTable );
+        pageVariables.put("items", usrList);
         pageVariables.put("login", request.getSession().getAttribute("login") );
         pageVariables.put("total", dbService.getCount() );
 

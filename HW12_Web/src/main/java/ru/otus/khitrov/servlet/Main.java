@@ -10,6 +10,7 @@ import ru.otus.khitrov.base.DBServiceHibernateImpl;
 import ru.otus.khitrov.base.dataSets.AddressDataSet;
 import ru.otus.khitrov.base.dataSets.PhoneDataSet;
 import ru.otus.khitrov.base.dataSets.UserDataSet;
+import ru.otus.khitrov.template.TemplateProcessor;
 
 import java.util.List;
 
@@ -27,7 +28,7 @@ public class Main {
        TemplateProcessor templateProcessor = new TemplateProcessor();
 
        DBService dbServiceHib = new DBServiceHibernateImpl();
-//       initWithDefaults( dbServiceHib );
+       initWithDefaults( dbServiceHib );
 
        context.addServlet(new ServletHolder(new LoginServlet(templateProcessor,
                                 "anonymous", dbServiceHib )), "/login");

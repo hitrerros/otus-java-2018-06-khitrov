@@ -73,13 +73,12 @@ public  class UserDataSet extends  DataSet {
     @Override
     public String toString() {
 
-
         if (phones != null) {
             return "UserDataSet{" +
                     "name='" + name + '\'' +
                     ", age=" + age +
                     ", address=" + address.toString() +
-                    ", phones=" + phones.stream().map(Object::toString).collect(Collectors.joining(",")) +
+                    ", phones=" + getPhonesAsString() +
                     '}';
         } else {
             return "UserDataSet{" +
@@ -102,5 +101,10 @@ public  class UserDataSet extends  DataSet {
                      Stream.of( phones.split(","))
                              .map( PhoneDataSet::new )
                              .collect( Collectors.toList() ) );
+    }
+
+    public  String getPhonesAsString(  ) {
+        return (phones == null ) ? "" : getPhones().stream().
+                                        map(Object::toString).collect(Collectors.joining(","));
     }
 }
