@@ -10,9 +10,9 @@ class SortFactory {
     private final Monitor monitor = new Monitor();
 
     class Monitor {
-        private volatile int index = -1;
+        private int index = -1;
         private boolean transfer = false;
-        private volatile int counter = 0;
+        private int counter = 0;
 
         void mergeArray() {
             System.out.println("merged " + this.index);
@@ -40,7 +40,7 @@ class SortFactory {
     }
 
 
-    public static List<Integer> getSortedArray(  List<Integer> srcList, int numberOfThreads  ) throws InterruptedException
+    public static List<Integer> getSortedArray(  List<Integer> srcList, int numberOfThreads  )
     {
         SortFactory factory = new SortFactory( srcList, numberOfThreads );
         return factory.runThreads();
@@ -92,7 +92,7 @@ class SortFactory {
 
     class MergeThread implements Runnable {
 
-        int totalThreads = 0;
+        final int totalThreads;
         MergeThread(int totalThreads) {
             this.totalThreads = totalThreads;
         }
@@ -136,7 +136,7 @@ class SortFactory {
 
     class SortThread implements Runnable {
 
-        int index;
+        final int index;
 
         SortThread(int index) {
             this.index = index;
