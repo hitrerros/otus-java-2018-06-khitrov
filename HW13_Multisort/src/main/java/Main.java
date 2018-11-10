@@ -28,14 +28,14 @@ class Main {
 
         System.out.println("initial array");
         System.out.println( srcList.stream()
-                            .map(s->s.toString())
+                            .map(Object::toString)
                             .collect(Collectors.joining(",")) );
 
 
         List<Integer> multiThreadList = SortFactory.getSortedArray( srcList, NUMBER_OF_THREADS );
         System.out.println("sorted array");
         System.out.println( multiThreadList.stream()
-                                  .map(s->s.toString())
+                                  .map(Object::toString)
                                   .collect(Collectors.joining(",")) );
 
 
