@@ -43,10 +43,10 @@ class SortFactory {
     public static List<Integer> getSortedArray(  List<Integer> srcList, int numberOfThreads  )
     {
         SortFactory factory = new SortFactory( srcList, numberOfThreads );
-        return factory.runThreads();
+        return factory.runThreadsAndGetList();
     }
 
-    private List<Integer> runThreads() {
+    private List<Integer> runThreadsAndGetList() {
 
         Thread mergeThread = new Thread(new MergeThread( numberOfThreads ));
         mergeThread.start();
