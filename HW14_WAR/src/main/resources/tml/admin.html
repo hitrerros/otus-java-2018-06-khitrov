@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8"/>
+    <title>Login</title>
+    <link rel="stylesheet" type="text/css" href="styles.css" />
+</head>
+
+<body>
+<script>
+function validateForm() {
+var x = document.forms["find_usr"]["f_user"].value;
+if (x == "") {
+alert("Please fill id!");
+return false;
+}
+}
+</script>
+
+<div class = "top">
+<p>Current login: ${login}</p>
+<h3>Choose your action:</h3>
+<ul>
+    <li><a href = "login">back to login</a></li>
+    <li><a href = "admin?action=add_user">add user</a></li>
+    <li>find user by id:
+        <form name = "find_usr" action="admin?action=find_user"  onsubmit="return validateForm()"  method="POST" >
+            id: <input type="text" name="f_user"/>
+            <input type="submit" value="find">
+        </form>
+       </li>
+</ul>
+</div>
+
+<br/><br/><br/>
+
+<h2> current user list </h2>
+    <table>
+        <tr>
+            <td>id</td>
+            <td>name</td>
+            <td>age</td>
+            <td>address</td>
+            <td>phones</td>
+        </tr>
+
+        <#if items??>
+        <#list items as item>
+        <tr>
+            <td>${item.id}</td>
+            <td>${item.name}</td>
+            <td>${item.age}</td>
+            <td>${item.address}</td>
+            <td>${item.getPhonesAsString()}</td>
+        </tr>
+        </#list>
+        </#if>
+    </table>
+
+    <div>Total users: ${total}</div>
+</body>
+</html>
