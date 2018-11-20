@@ -16,8 +16,6 @@ import ru.otus.khitrov.base.dataSets.DataSet;
 import ru.otus.khitrov.base.dataSets.PhoneDataSet;
 import ru.otus.khitrov.base.dataSets.UserDataSet;
 
-import org.springframework.cache.annotation.Cacheable;
-import java.io.File;
 import java.util.List;
 import java.util.function.Function;
 
@@ -26,23 +24,12 @@ public class DBServiceHibernateImpl implements DBService {
 
     private final SessionFactory sessionFactory;
 
-    @Autowired
     public DBServiceHibernateImpl(){
-
         Configuration configuration = new Configuration()
                 .addAnnotatedClass(UserDataSet.class)
                 .addAnnotatedClass(PhoneDataSet.class)
-                .addAnnotatedClass(AddressDataSet.class);
-  //              .configure(new File("hibernate.cfg.xml"));
-        configuration.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQL95Dialect");
-        configuration.setProperty("hibernate.connection.driver_class", "org.postgresql.Driver");
-        configuration.setProperty("hibernate.connection.url", "jdbc:postgresql://localhost/otus:5432");
-        configuration.setProperty("hibernate.connection.username", "postgres");
-        configuration.setProperty("hibernate.connection.password", "1");
-        configuration.setProperty("hibernate.show_sql", "true");
-        configuration.setProperty("hibernate.hbm2ddl.auto", "create");
-        configuration.setProperty("hibernate.connection.useSSL", "false");
-        configuration.setProperty("hibernate.enable_lazy_load_no_trans", "true");
+                .addAnnotatedClass(AddressDataSet.class)
+                .configure(); // "hibernate.cfg.xml" by default
 
         sessionFactory = createSessionFactory(configuration);
     }

@@ -1,19 +1,14 @@
 package ru.otus.khitrov.servlet;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.context.support.SpringBeanAutowiringSupport;
-import ru.otus.khitrov.template.TemplateProcessor;
-
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class LoginServlet extends HttpServlet {
+public class LoginServlet extends MainServlet {
 
     private static final String LOGIN_PAGE_TEMPLATE = "login.html";
     public static final String LOGIN_PARAMETER_NAME = "login";
@@ -21,21 +16,14 @@ public class LoginServlet extends HttpServlet {
 
     private String login;
 
-    @Autowired
-    private TemplateProcessor templateProcessor;
-
-
     public LoginServlet() throws IOException {
         this.login = "anonymous";
-  //      this.templateProcessor = new TemplateProcessor();
-
     }
 
 
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
-        SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
      }
 
     @Override

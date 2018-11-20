@@ -17,16 +17,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.web.context.support.SpringBeanAutowiringSupport;
-
-
-public class AdminServlet extends HttpServlet {
+public class AdminServlet extends MainServlet {
 
     private static final String ADMIN_PAGE_TEMPLATE = "admin.html";
     private static final String ADD_USER_PAGE_TEMPLATE = "add_user.html";
 
-    @Autowired
-    private TemplateProcessor templateProcessor;
     @Autowired
     private DBService dbService;
     @Autowired
@@ -39,12 +34,6 @@ public class AdminServlet extends HttpServlet {
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
-
-//        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(SpringAppConfig.class);
-//        dbService = (DBService) context.getBean(DBServiceHibernateImpl.class);
-//        templateProcessor = (TemplateProcessor) context.getBean(TemplateProcessor.class);
-
-        SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
     }
 
     @Override
@@ -73,39 +62,49 @@ public class AdminServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String action =  request.getParameter("action");
-        List<UserDataSet> usrList;
 
         try {
          if ("find_user".equals( action )) {
-
-             Long userId = Long.valueOf(request.getParameter("f_user"));
-             UserDataSet usr;
-
-             if ((usr = cache.getValue(userId))==null) {
-                       dbService.read(userId);
-             }
-
-               usrList = ( usr == null ) ? null  :  List.of( usr );
-               prepareRespondPage( request,response, ADMIN_PAGE_TEMPLATE, usrList );
+              findUserAction(request,response);
             }
         else if ("added_user".equals( action )) {
-
-            UserDataSet dataSet = UserDataSet.generateFromParameters( request.getParameter( "name"),
-                                                                  request.getParameter( "age"),
-                                                                  request.getParameter( "address"),
-                                                                  request.getParameter( "phones"));
-             dbService.save( dataSet );
-             cache.setValue( dataSet );
-             prepareRespondPage( request,response, ADMIN_PAGE_TEMPLATE, dbService.readAll() );
-
+                addUserAction(request,response);
         }
 
     } catch (Exception e) {
         e.printStackTrace();
     }
 
-
 }
+
+
+    private void findUserAction(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+        List<UserDataSet> usrList;
+        Long userId = Long.valueOf(request.getParameter("f_user"));
+        UserDataSet usr;
+
+        if ((usr = cache.getValue(userId))==null) {
+            dbService.read(userId);
+        }
+
+        usrList = ( usr == null ) ? null  :  List.of( usr );
+        prepareRespondPage( request,response, ADMIN_PAGE_TEMPLATE, usrList );
+    }
+
+    private void addUserAction(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+        UserDataSet dataSet = UserDataSet.generateFromParameters( request.getParameter( "name"),
+                                                                  request.getParameter( "age"),
+                                                                  request.getParameter( "address"),
+                                                                  request.getParameter( "phones"));
+
+        dbService.save( dataSet );
+        cache.setValue( dataSet );
+
+        prepareRespondPage( request,response, ADMIN_PAGE_TEMPLATE, dbService.readAll() );
+    }
+
 
     private void prepareRespondPage( HttpServletRequest request,
                                      HttpServletResponse response,

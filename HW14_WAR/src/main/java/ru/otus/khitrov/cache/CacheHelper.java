@@ -6,8 +6,10 @@ import org.ehcache.CacheManager;
 import org.ehcache.config.builders.CacheConfigurationBuilder;
 import org.ehcache.config.builders.CacheManagerBuilder;
 import org.ehcache.config.builders.ResourcePoolsBuilder;
+import org.springframework.stereotype.Component;
 import ru.otus.khitrov.base.dataSets.UserDataSet;
 
+@Component
 public class CacheHelper {
 
     private  final Cache<Long, UserDataSet> userDataSetCache;
