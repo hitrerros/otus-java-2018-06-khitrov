@@ -7,32 +7,33 @@ import org.ehcache.config.builders.CacheConfigurationBuilder;
 import org.ehcache.config.builders.CacheManagerBuilder;
 import org.ehcache.config.builders.ResourcePoolsBuilder;
 import org.springframework.stereotype.Component;
-import ru.otus.khitrov.base.dataSets.UserDataSet;
+import ru.otus.khitrov.base.dataSets.DataSet;
+
 
 @Component
-public class CacheHelper {
+ public  class  CacheHelper  <T extends DataSet>{
 
-    private  final Cache<Long, UserDataSet> userDataSetCache;
+    private  final Cache<Long, T> dataSetCache;
 
     public CacheHelper() {
 
         CacheManager cacheManager = CacheManagerBuilder.newCacheManagerBuilder().withCache("users",
-                        CacheConfigurationBuilder.newCacheConfigurationBuilder(Long.class, UserDataSet.class,
+                        CacheConfigurationBuilder.newCacheConfigurationBuilder(Long.class, DataSet.class,
                                 ResourcePoolsBuilder.heap(100))
                                 .build())
                 .build(true);
 
-        this.userDataSetCache = cacheManager.getCache("users", Long.class, UserDataSet.class);
+        this.dataSetCache = (Cache<Long, T>) cacheManager.getCache("users", Long.class, DataSet.class);
 
     }
 
-    public UserDataSet getValue(long id) {
-      if (!userDataSetCache.containsKey(id)) return  null;
-          return userDataSetCache.get(id);
+     public   T getValue(long id) {
+      if (!dataSetCache.containsKey(id)) return  null;
+          return  dataSetCache.get(id);
     }
 
-    public void  setValue(UserDataSet user) {
-        userDataSetCache.put( user.getId(), user  );
+    public   void  setValue(T user) {
+        dataSetCache.put( user.getId(),  user  );
     }
 
 

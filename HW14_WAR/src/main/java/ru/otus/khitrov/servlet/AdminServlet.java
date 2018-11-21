@@ -2,6 +2,7 @@ package ru.otus.khitrov.servlet;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import ru.otus.khitrov.base.CachedDBService;
 import ru.otus.khitrov.base.DBService;
 import ru.otus.khitrov.base.dataSets.UserDataSet;
 import ru.otus.khitrov.cache.CacheHelper;
@@ -23,10 +24,7 @@ public class AdminServlet extends MainServlet {
     private static final String ADD_USER_PAGE_TEMPLATE = "add_user.html";
 
     @Autowired
-    private DBService dbService;
-    @Autowired
-    private CacheHelper cache;
-
+    private CachedDBService dbService;
 
     public AdminServlet() throws IOException {
     }
@@ -82,11 +80,7 @@ public class AdminServlet extends MainServlet {
 
         List<UserDataSet> usrList;
         Long userId = Long.valueOf(request.getParameter("f_user"));
-        UserDataSet usr;
-
-        if ((usr = cache.getValue(userId))==null) {
-            dbService.read(userId);
-        }
+        UserDataSet usr = dbService.read(userId);
 
         usrList = ( usr == null ) ? null  :  List.of( usr );
         prepareRespondPage( request,response, ADMIN_PAGE_TEMPLATE, usrList );
@@ -100,7 +94,6 @@ public class AdminServlet extends MainServlet {
                                                                   request.getParameter( "phones"));
 
         dbService.save( dataSet );
-        cache.setValue( dataSet );
 
         prepareRespondPage( request,response, ADMIN_PAGE_TEMPLATE, dbService.readAll() );
     }

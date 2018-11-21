@@ -1,6 +1,8 @@
 package ru.otus.khitrov.base;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import ru.otus.khitrov.base.dataSets.DataSet;
+import ru.otus.khitrov.cache.CacheHelper;
 
 import java.util.List;
 
