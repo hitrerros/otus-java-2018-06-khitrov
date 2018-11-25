@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8"/>
+    <title>Login</title>
+    <script src="js/admin_socket.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="styles.css" />
+</head>
+
+<body onload="init();">
+
+<div class = "top">
+<p>Current login: ${login}</p>
+<h3>Choose your action:</h3>
+<ul>
+    <li><a href = "login">back to login</a></li>
+    <li>add user:
+    <table>
+        <tr>
+        <td>name:   <input type="text" id ="add_name"/></td>
+        <td>age:    <input type="text" id ="add_age"/></td>
+        <td>address:<input type="text" id ="add_address"/></td>
+        <td>phones: <input type="text" id ="add_phones"/></td>
+        <td><input type="button" value="add" onclick="addUser();"></td>
+        </tr>
+    </table>
+
+
+    </li>
+    <li>find user by id:
+            <table>
+            <tr>
+                <td><input type="text" id="find_user"/></td>
+                <td><input type="button" value="find" onclick="findUser();"></td>
+            </tr>
+            </table>
+
+       </li>
+</ul>
+</div>
+
+<br/><br/><br/>
+
+<h2> current user list </h2>
+    <table id = "usrtab">
+        <tr>
+            <td>id</td>
+            <td>name</td>
+            <td>age</td>
+            <td>address</td>
+            <td>phones</td>
+        </tr>
+    </table>
+
+ </body>
+</html>
