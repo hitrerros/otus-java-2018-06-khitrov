@@ -14,7 +14,7 @@ public abstract class MainServlet extends WebSocketServlet {
     @Autowired
     protected TemplateProcessor templateProcessor;
 
-    public MainServlet(){
+    public MainServlet() {
 
     }
 
@@ -23,7 +23,6 @@ public abstract class MainServlet extends WebSocketServlet {
         super.init(config);
         SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
     }
-
 
 
 }

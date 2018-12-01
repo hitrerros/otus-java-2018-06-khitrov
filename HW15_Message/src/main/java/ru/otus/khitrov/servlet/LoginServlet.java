@@ -31,7 +31,7 @@ public class LoginServlet extends MainServlet {
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
-     }
+    }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

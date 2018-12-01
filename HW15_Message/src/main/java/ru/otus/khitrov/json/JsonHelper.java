@@ -12,29 +12,28 @@ class UserDataSetAdapter implements JsonSerializer<UserDataSet> {
     @Override
     public JsonElement serialize(UserDataSet userDataSet, Type type, JsonSerializationContext jsonSerializationContext) {
         JsonObject obj = new JsonObject();
-        obj.addProperty("id",       userDataSet.getId());
-        obj.addProperty("name",     userDataSet.getName());
-        obj.addProperty("age",      userDataSet.getAge());
-        obj.addProperty("address",  userDataSet.getAddress().toString());
-        obj.addProperty("phones",   userDataSet.getPhones().toString());
+        obj.addProperty("id", userDataSet.getId());
+        obj.addProperty("name", userDataSet.getName());
+        obj.addProperty("age", userDataSet.getAge());
+        obj.addProperty("address", userDataSet.getAddress().toString());
+        obj.addProperty("phones", userDataSet.getPhones().toString());
 
         return obj;
     }
 }
 
-
 @Service
 public class JsonHelper {
 
-  public static JsonToClientBean deserializeMessage(String json ) {
-        return   new Gson().fromJson(json, JsonToClientBean.class);
+    public static JsonToClientBean deserializeMessage(String json) {
+        return new Gson().fromJson(json, JsonToClientBean.class);
     }
 
-    public static String serializeDataSetToJson(List<UserDataSet>  usrList ) {
+    public static String serializeDataSetToJson(List<UserDataSet> usrList) {
         GsonBuilder gsonBuilder = new GsonBuilder();
         gsonBuilder.registerTypeAdapter(UserDataSet.class, new UserDataSetAdapter());
         return gsonBuilder.create().toJson(usrList);
 
     }
 
-    }
+}
