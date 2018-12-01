@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>ru.otus.khitrov</groupId>
+    <artifactId>HW16_MsgServerCore</artifactId>
+    <version>2018-06</version>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.10</maven.compiler.source>
+        <maven.compiler.target>1.10</maven.compiler.target>
+        <freemarker.version>2.3.28</freemarker.version>
+        <spring.version>5.0.7.RELEASE</spring.version>
+        <jaxb.version>2.3.0</jaxb.version>
+        <hibernate-core.version>5.3.6.Final</hibernate-core.version>
+        <argLine>--add-modules java.xml.bind</argLine>
+        <jetty.version>9.4.11.v20180605</jetty.version>
+        <ehcache.version>2.10.5</ehcache.version>
+
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.9.7</version>
+        </dependency>
+    </dependencies>
+
+
+</project>
