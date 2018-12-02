@@ -3,9 +3,6 @@ package ru.otus.khitrov;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.webapp.WebAppContext;
 
-
-import java.util.logging.Logger;
-
 public class FrontendMain {
 
     private static final int WEB_PORT = 8090;

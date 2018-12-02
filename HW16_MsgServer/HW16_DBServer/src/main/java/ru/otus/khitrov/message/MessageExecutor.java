@@ -17,15 +17,14 @@ public class MessageExecutor {
     private final CachedDBService dbService;
     private static final List<JsonBean> EMPTY_JSON_BEAN = new ArrayList<>();
 
-    public  MessageExecutor(){
-      dbService = new CachedDBServiceHibernateImpl();
+    public MessageExecutor() {
+        dbService = new CachedDBServiceHibernateImpl();
     }
 
-    private void  readAllAndSave(MessageDBServer reply) throws Exception {
-
+    private void readAllAndSave(MessageDBServer reply) throws Exception {
         List<UserDataSet> usrList = dbService.readAll();
         reply.setListMessages(
-                (usrList.isEmpty()) ? EMPTY_JSON_BEAN  :
+                (usrList.isEmpty()) ? EMPTY_JSON_BEAN :
                         usrList.stream().map(UserDataSet::generateBean).collect(Collectors.toList()));
 
     }

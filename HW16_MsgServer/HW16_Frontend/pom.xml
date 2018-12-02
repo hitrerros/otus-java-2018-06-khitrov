@@ -7,7 +7,6 @@
     <groupId>ru.otus.khitrov</groupId>
     <artifactId>HW16_Frontend</artifactId>
     <version>2018-06</version>
-    <packaging>war</packaging>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -136,18 +135,6 @@
                        </archive>
                    </configuration>
                </plugin>
-
-            <plugin>
-            <artifactId>maven-war-plugin</artifactId>
-            <configuration>
-                <webXml>src/main/resources/WEB-INF/web.xml</webXml>
-                <webResources>
-                    <resource>
-                        <directory>public_html</directory>
-                    </resource>
-                </webResources>
-            </configuration>
-        </plugin>
 
         </plugins>
     </build>

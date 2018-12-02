@@ -1,7 +1,6 @@
 package ru.otus.khitrov.servlet.admin;
 
 import org.eclipse.jetty.websocket.servlet.WebSocketServletFactory;
-import org.springframework.stereotype.Component;
 import ru.otus.khitrov.servlet.MainServlet;
 
 import javax.servlet.ServletException;

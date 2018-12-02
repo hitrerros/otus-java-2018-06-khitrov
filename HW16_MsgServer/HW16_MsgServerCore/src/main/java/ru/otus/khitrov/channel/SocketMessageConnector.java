@@ -3,7 +3,6 @@ package ru.otus.khitrov.channel;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import ru.otus.khitrov.messages.Address;
 import ru.otus.khitrov.messages.Message;
-import ru.otus.khitrov.messages.MessageHello;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -47,11 +46,6 @@ public class SocketMessageConnector implements MessageWorker {
     }
 
     @Override
-    public boolean remove(Object o) {
-        return input.remove(o);
-    }
-
-    @Override
     public Message take() throws InterruptedException {
         return input.take();
     }
@@ -75,7 +69,7 @@ public class SocketMessageConnector implements MessageWorker {
                 final String json = MAPPER.writeValueAsString(message);
 
                 if (this instanceof SocketMessageClient)
-                    System.out.println(address.getId()+ ": sending message: " + json);
+                    System.out.println(address.getId() + ": sending message: " + json);
 
                 writer.println(json);
                 writer.println();//line with json + an empty line
@@ -95,7 +89,7 @@ public class SocketMessageConnector implements MessageWorker {
                     final String json = stringBuilder.toString();
 
                     if (this instanceof SocketMessageClient)
-                           System.out.println(address.getId()+ ": Receiving message: " + json);
+                        System.out.println(address.getId() + ": Receiving message: " + json);
 
                     final Message message = MAPPER.readValue(json, Message.class);
                     input.add(message);

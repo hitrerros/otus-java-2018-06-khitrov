@@ -27,7 +27,7 @@ public class TemplateProcessor {
         configuration = new Configuration(Configuration.VERSION_2_3_28);
         configuration.setClassForTemplateLoading(this.getClass(), HTML_DIR);
 
-        configuration.setObjectWrapper( new DefaultObjectWrapperBuilder( Configuration.VERSION_2_3_28).build() );
+        configuration.setObjectWrapper(new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_28).build());
         configuration.setDefaultEncoding("UTF-8");
     }
 

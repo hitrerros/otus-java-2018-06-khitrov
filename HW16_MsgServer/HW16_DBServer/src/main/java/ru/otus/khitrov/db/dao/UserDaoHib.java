@@ -18,7 +18,7 @@ public class UserDaoHib {
         this.session = session;
     }
 
-    public  long save(UserDataSet dataSet) {
+    public long save(UserDataSet dataSet) {
         return (long) session.save(dataSet);
     }
 
@@ -46,7 +46,7 @@ public class UserDaoHib {
         Query query = session.createSQLQuery(
                 "select count(*) from user_list");
 
-       return ((BigInteger) query.getSingleResult()).longValue();
+        return ((BigInteger) query.getSingleResult()).longValue();
 
     }
 

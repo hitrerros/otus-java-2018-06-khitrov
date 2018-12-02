@@ -8,14 +8,14 @@ import ru.otus.khitrov.messages.json.JsonBean;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME,
-                visible = true,
-                include = JsonTypeInfo.As.PROPERTY
-        )
+        visible = true,
+        include = JsonTypeInfo.As.PROPERTY
+)
 @JsonSubTypes({
-        @JsonSubTypes.Type(value = JsonBean.class,        name = "JsonBean"),
+        @JsonSubTypes.Type(value = JsonBean.class, name = "JsonBean"),
         @JsonSubTypes.Type(value = MessageFrontEnd.class, name = "MessageFrontEnd"),
         @JsonSubTypes.Type(value = MessageDBServer.class, name = "MessageDBServer"),
-        @JsonSubTypes.Type(value = MessageHello.class,    name = "MessageHello"),
+        @JsonSubTypes.Type(value = MessageHello.class, name = "MessageHello"),
 }
 )
 public abstract class Message {
@@ -30,7 +30,8 @@ public abstract class Message {
         this.to = to;
     }
 
-    public Message() { }
+    public Message() {
+    }
 
     public Address getFrom() {
         return from;

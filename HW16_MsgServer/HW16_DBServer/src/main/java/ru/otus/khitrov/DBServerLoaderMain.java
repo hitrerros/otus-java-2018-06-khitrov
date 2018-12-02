@@ -20,34 +20,34 @@ public class DBServerLoaderMain {
     private static final Logger logger = Logger.getLogger(DBServerLoaderMain.class.getName());
     private final Address address;
 
-    DBServerLoaderMain(){
-        address     = new Address("db");
+    DBServerLoaderMain() {
+        address = new Address("db");
         msgExecutor = new MessageExecutor();
     }
 
 
     public static void main(String[] args) throws Exception {
-        DBServerLoaderMain dbServerLoader =  new DBServerLoaderMain();
+        DBServerLoaderMain dbServerLoader = new DBServerLoaderMain();
         dbServerLoader.startSocketClient();
     }
 
-    private void  startSocketClient() throws Exception {
-        System.out.println("Starting db listener on port " + PORT );
-        socketClient = new SocketMessageClient(HOST, PORT,address);
+    private void startSocketClient() throws Exception {
+        System.out.println("Starting db listener on port " + PORT);
+        socketClient = new SocketMessageClient(HOST, PORT, address);
         socketClient.init();
 
         ExecutorService executorService = Executors.newSingleThreadExecutor();
         executorService.submit(() -> {
             try {
                 while (true) {
-                    final Message inMessage  = socketClient.take();
+                    final Message inMessage = socketClient.take();
 
                     if (!address.getId().equals(inMessage.getTo().getId())) continue;
 
                     System.out.println("Message received on db client: " + inMessage.toString());
 
-                    final Message outMessage = msgExecutor.doReply( inMessage );
-                    if (outMessage !=null) {
+                    final Message outMessage = msgExecutor.doReply(inMessage);
+                    if (outMessage != null) {
                         System.out.println("outMessage from db: " + inMessage.toString());
                         socketClient.send(outMessage);
 
@@ -58,14 +58,5 @@ public class DBServerLoaderMain {
                 logger.log(Level.SEVERE, e.getMessage());
             }
         });
-
-
-
-
-
-
-   }
-
-
-
+    }
 }

@@ -6,11 +6,12 @@ public class MessageHello extends Message {
 
     private static final String MESSAGE_SERVER_ADDRESS = "MessageServer";
 
-    public  MessageHello(Address from) {
-        super(from,new Address(MESSAGE_SERVER_ADDRESS));
+    public MessageHello(Address from) {
+        super(from, new Address(MESSAGE_SERVER_ADDRESS));
     }
 
-    public MessageHello() {}
+    public MessageHello() {
+    }
 
     @Override
     public JsonBean getBean() {

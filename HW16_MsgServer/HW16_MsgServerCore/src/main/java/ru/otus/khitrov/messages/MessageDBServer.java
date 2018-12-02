@@ -8,15 +8,16 @@ import java.util.List;
 
 public class MessageDBServer extends Message {
 
-   @JsonProperty("list")
-   private List<JsonBean> listMessages = new ArrayList<>();
+    @JsonProperty("list")
+    private List<JsonBean> listMessages = new ArrayList<>();
 
-    public MessageDBServer(Address from, Address to, List<JsonBean> listMessages){
-        super(from,to);
+    public MessageDBServer(Address from, Address to, List<JsonBean> listMessages) {
+        super(from, to);
         this.listMessages = listMessages;
     }
 
-    public MessageDBServer(){}
+    public MessageDBServer() {
+    }
 
     @Override
     public JsonBean getBean() {

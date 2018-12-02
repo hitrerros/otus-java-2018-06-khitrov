@@ -2,7 +2,6 @@ package ru.otus.khitrov.server;
 
 import ru.otus.khitrov.channel.MessageWorker;
 import ru.otus.khitrov.channel.SocketMessageConnector;
-import ru.otus.khitrov.messages.json.JsonBean;
 import ru.otus.khitrov.messages.Address;
 import ru.otus.khitrov.messages.Message;
 import ru.otus.khitrov.messages.MessageHello;
@@ -19,9 +18,6 @@ import java.util.concurrent.Executors;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- * Created by tully.
- */
 public class SocketMessageServer {
     private static final Logger logger = Logger.getLogger(SocketMessageServer.class.getName());
 
@@ -39,10 +35,8 @@ public class SocketMessageServer {
         addresseeMap = new ConcurrentHashMap<>();
     }
 
-
     public void start() throws Exception {
         executor.submit(this::echo);
-//        Message testMsg = JsonBean.getReadAllMessage();
 
         try (ServerSocket serverSocket = new ServerSocket(PORT)) {
             logger.info("Server started on port: " + serverSocket.getLocalPort());
@@ -63,10 +57,9 @@ public class SocketMessageServer {
                 while (message != null) {
 
                     if (message instanceof MessageHello) {
-                             System.out.println("Init client on server: " + message.getFrom().getId());
-                             addresseeMap.put(message.getFrom(),worker);
-                    }
-                    else {
+                        System.out.println("Init client on server: " + message.getFrom().getId());
+                        addresseeMap.put(message.getFrom(), worker);
+                    } else {
                         System.out.println("Redirecting the message: " + message.toString());
                         MessageWorker destination = addresseeMap.get(message.getTo());
                         destination.send(message);

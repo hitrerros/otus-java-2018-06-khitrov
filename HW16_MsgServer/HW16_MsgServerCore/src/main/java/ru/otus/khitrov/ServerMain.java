@@ -13,33 +13,46 @@ import java.util.logging.Logger;
 public class ServerMain {
 
     private static final Logger logger = Logger.getLogger(ServerMain.class.getName());
-    private static final String DB_SERVER_START_COMMAND = "java -jar  ../HW16_DBServer/target/DBServer.jar";
-    private static final String FRONTEND_START_COMMAND = "java -jar  ../HW16_Frontend/target/users.jar";
-    private static final int CLIENT_START_DELAY_SEC = 5;
+    private static final String DB_SERVER_START_COMMAND = "java -jar HW16_DBServer/target/dbserver.jar";
+    private static final String FRONTEND_START_COMMAND = "java -jar HW16_Frontend/target/frontend.jar";
 
-    public static void main(String[] args) throws  Exception {
-         new ServerMain().start();
-     }
+    private static final int CLIENT_START_DELAY_SEC = 2;
+
+    public static void main(String[] args) throws Exception {
+        new ServerMain().start();
+    }
 
     private void start() throws Exception {
-        ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
-        SocketMessageServer server = new SocketMessageServer();
 
+        ScheduledExecutorService executorService = Executors.newScheduledThreadPool(2);
+        SocketMessageServer server = new SocketMessageServer();
+        startClient(executorService);
         server.start();
         executorService.shutdown();
     }
 
     private void startClient(ScheduledExecutorService executorService) {
+
         executorService.schedule(() -> {
             try {
+
                 new ProcessRunnerImpl().start(DB_SERVER_START_COMMAND);
             } catch (IOException e) {
                 logger.log(Level.SEVERE, e.getMessage());
             }
         }, CLIENT_START_DELAY_SEC, TimeUnit.SECONDS);
+
+        executorService.schedule(() -> {
+            try {
+
+                new ProcessRunnerImpl().start(FRONTEND_START_COMMAND);
+            } catch (IOException e) {
+                logger.log(Level.SEVERE, e.getMessage());
+            }
+        }, CLIENT_START_DELAY_SEC + 2, TimeUnit.SECONDS);
+
+
     }
-
-
 
 
 }
