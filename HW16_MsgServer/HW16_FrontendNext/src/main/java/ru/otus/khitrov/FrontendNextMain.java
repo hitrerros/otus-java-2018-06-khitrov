@@ -3,16 +3,16 @@ package ru.otus.khitrov;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.webapp.WebAppContext;
 
-public class FrontendMain {
+public class FrontendNextMain {
 
-    public static final int WEB_PORT = 8090;
+    public static final int WEB_PORT = 8070;
 
-    private final static String PUBLIC_HTML = "HW16_Frontend/public_html";
-    private final static String WEBXML_PATH = "HW16_Frontend/src/main/resources/WEB-INF/web.xml";
+    private final static String PUBLIC_HTML = "HW16_FrontendNext/public_html";
+    private final static String WEBXML_PATH = "HW16_FrontendNext/src/main/resources/WEB-INF/web.xml";
 
     public static void main(String[] args) throws Exception  {
-        FrontendMain frontendMain = new FrontendMain();
-        frontendMain.startWeb();
+        FrontendNextMain frontendNextMain = new FrontendNextMain();
+        frontendNextMain.startWeb();
     }
 
     private void startWeb() throws Exception {

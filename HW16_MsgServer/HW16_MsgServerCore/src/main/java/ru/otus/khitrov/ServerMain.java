@@ -15,8 +15,11 @@ public class ServerMain {
     private static final Logger logger = Logger.getLogger(ServerMain.class.getName());
     private static final String DB_SERVER_START_COMMAND = "java -jar HW16_DBServer/target/dbserver.jar";
     private static final String FRONTEND_START_COMMAND = "java -jar HW16_Frontend/target/frontend.jar";
+    private static final String FRONTEND_NEXT_START_COMMAND = "java -jar HW16_FrontendNext/target/frontend_next.jar";
 
     private static final int CLIENT_START_DELAY_SEC = 2;
+    private static final int THREAD_CONNECTORS_POOL = 3;
+
 
     public static void main(String[] args) throws Exception {
         new ServerMain().start();
@@ -24,7 +27,7 @@ public class ServerMain {
 
     private void start() throws Exception {
 
-        ScheduledExecutorService executorService = Executors.newScheduledThreadPool(2);
+        ScheduledExecutorService executorService = Executors.newScheduledThreadPool(THREAD_CONNECTORS_POOL);
         SocketMessageServer server = new SocketMessageServer();
         startClient(executorService);
         server.start();
@@ -51,7 +54,14 @@ public class ServerMain {
             }
         }, CLIENT_START_DELAY_SEC + 2, TimeUnit.SECONDS);
 
+        executorService.schedule(() -> {
+            try {
 
+                new ProcessRunnerImpl().start(FRONTEND_NEXT_START_COMMAND );
+            } catch (IOException e) {
+                logger.log(Level.SEVERE, e.getMessage());
+            }
+        }, CLIENT_START_DELAY_SEC + 10, TimeUnit.SECONDS);
     }
 
 

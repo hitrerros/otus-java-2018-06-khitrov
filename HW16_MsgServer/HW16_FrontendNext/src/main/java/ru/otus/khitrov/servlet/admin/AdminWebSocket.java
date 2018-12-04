@@ -6,7 +6,7 @@ import org.eclipse.jetty.websocket.api.annotations.OnWebSocketClose;
 import org.eclipse.jetty.websocket.api.annotations.OnWebSocketConnect;
 import org.eclipse.jetty.websocket.api.annotations.OnWebSocketMessage;
 import org.eclipse.jetty.websocket.api.annotations.WebSocket;
-import ru.otus.khitrov.FrontendMain;
+import ru.otus.khitrov.FrontendNextMain;
 import ru.otus.khitrov.channel.SocketMessageClient;
 import ru.otus.khitrov.messages.Address;
 import ru.otus.khitrov.messages.Message;
@@ -40,7 +40,7 @@ public class AdminWebSocket {
 
 
     public AdminWebSocket(Set<AdminWebSocket> users) throws IOException {
-        address = new Address("frontend_" + FrontendMain.WEB_PORT );
+        address = new Address("frontend_" + FrontendNextMain.WEB_PORT );
         this.socketClient = new SocketMessageClient(HOST, SOCKET_PORT, address);
         this.users = users;
     }
@@ -59,7 +59,6 @@ public class AdminWebSocket {
         String replyJson = MAPPER.writeValueAsString(listBean);
 
         for (AdminWebSocket user : users) {
-
             try {
                 user.getSession().getRemote().sendString(replyJson);
                 System.out.println("Sending message to web: " + replyJson);
