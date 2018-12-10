@@ -10,17 +10,17 @@ public enum Nominals {
     N_200,
     N_100;
 
-    public static Nominals integerToNominal(Integer currNominal ){
+    public static Nominals integerToNominal(Integer currNominal) {
         try {
-            return Nominals.valueOf(String.join("","N_", String.valueOf(currNominal)));
-        } catch (IllegalArgumentException c ) {
+            return Nominals.valueOf(String.join("", "N_", String.valueOf(currNominal)));
+        } catch (IllegalArgumentException c) {
             System.out.println("No such nominal");
             return null;
         }
     }
 
-    public static Integer nominalToInteger( Nominals nominals ) {
-        return Integer.valueOf(StringUtils.substring(nominals.toString(),2));
+    public static Integer nominalToInteger(Nominals nominals) {
+        return Integer.valueOf(StringUtils.substring(nominals.toString(), 2));
     }
 
 }
