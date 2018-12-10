@@ -10,20 +10,19 @@ public class UserInterfaceATM {
     private static final String ATM_COMMANDS = "QBWRH";
 
 
-    public  UserInterfaceATM ( DeviceATM deviceATM ){
+    public UserInterfaceATM(DeviceATM deviceATM) {
         this.boxDeviceATM = deviceATM;
     }
 
-    public void startUI(){
+    public void startUI() {
 
         System.out.println("ATM is ready to run...type H for help");
-        while(true){
+        while (true) {
 
             System.out.print(">");
             String strInput = new Scanner(System.in).next();
-            if ( strInput.length() !=  1 ||
-                    !StringUtils.containsAny( strInput.toUpperCase(), ATM_COMMANDS))
-            {
+            if (strInput.length() != 1 ||
+                    !StringUtils.containsAny(strInput.toUpperCase(), ATM_COMMANDS)) {
                 System.out.println("Unknown command");
                 continue;
             }
@@ -41,7 +40,7 @@ public class UserInterfaceATM {
                 case 'R':
                     this.receiveView();
                     continue;
-                case 'H' :
+                case 'H':
                     UserInterfaceATM.showHelp();
             }
 
@@ -49,18 +48,18 @@ public class UserInterfaceATM {
 
     }
 
-    private void receiveView(){
+    private void receiveView() {
 
         System.out.print("Nominal: ");
-        int nom  = new Scanner(System.in).nextInt();
+        int nom = new Scanner(System.in).nextInt();
 
         System.out.print("Number of notes: ");
-        int notesNum  = new Scanner(System.in).nextInt();
+        int notesNum = new Scanner(System.in).nextInt();
 
-         try {
+        try {
             boxDeviceATM.receive(nom, notesNum);
-        } catch ( IllegalArgumentException e ) {
-            System.out.println( e.getMessage() );
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
         }
 
     }
@@ -76,23 +75,18 @@ public class UserInterfaceATM {
         }
     }
 
-    private void getBalanceView(){
-        System.out.println("Balance: " + boxDeviceATM.onShowBalance() );
+    private void getBalanceView() {
+        System.out.println("Balance: " + boxDeviceATM.onShowBalance());
     }
 
 
-
-    public static void showHelp(){
+    public static void showHelp() {
         System.out.println("B - balance");
         System.out.println("R - receive");
         System.out.println("W - withdrawal");
         System.out.println("Q - quit");
         System.out.println("H - help");
     }
-
-
-
-
 
 
 }

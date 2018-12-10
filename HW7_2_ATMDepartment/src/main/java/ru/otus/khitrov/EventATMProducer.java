@@ -5,8 +5,8 @@ import java.util.List;
 
 public class EventATMProducer {
 
- public EventATMProducer(){
- }
+    public EventATMProducer() {
+    }
 
     private final List<DeviceATM> listeners = new ArrayList<>();
 
@@ -18,7 +18,7 @@ public class EventATMProducer {
         listeners.remove(listener);
     }
 
-    public void undoEvent( ) {
+    public void undoEvent() {
         listeners.forEach(listener -> listener.onUndoState());
     }
 
@@ -26,7 +26,7 @@ public class EventATMProducer {
 
         int total = 0;
 
-        for ( DeviceATM listener : listeners )  total +=   listener.onShowBalance();
-        System.out.println("Total balance:" + total );
+        for (DeviceATM listener : listeners) total += listener.onShowBalance();
+        System.out.println("Total balance:" + total);
     }
 }

@@ -4,7 +4,7 @@ public class DeviceATMMemento {
 
     private final DeviceATMState state;
 
-    public DeviceATMMemento( DeviceATMState state ){
+    public DeviceATMMemento(DeviceATMState state) {
         this.state = state;
     }
 
