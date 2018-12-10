@@ -70,15 +70,13 @@ public class ReflectionHelper {
             isAccessible = method.canAccess(object);
             method.setAccessible(true);
             return method.invoke(object, args);
-        }
-        catch (InvocationTargetException e ){
-            if ( e.getTargetException() instanceof AssertionException) {
+        } catch (InvocationTargetException e) {
+            if (e.getTargetException() instanceof AssertionException) {
                 throw new AssertionException(e.getTargetException().getMessage());
             } else {
                 e.printStackTrace();
             }
-        }
-        catch (IllegalAccessException | NoSuchMethodException e  ) {
+        } catch (IllegalAccessException | NoSuchMethodException e) {
             e.printStackTrace();
         } finally {
             if (method != null && !isAccessible) {
@@ -88,14 +86,14 @@ public class ReflectionHelper {
         return null;
     }
 
-    static public List<Method> getMethodsWithAnnotation(Class clazz, Class annoClazz ) {
+    static public List<Method> getMethodsWithAnnotation(Class clazz, Class annoClazz) {
         List<Method> methods = new ArrayList<>();
 
         for (Method method : clazz.getDeclaredMethods()) {
-           if (method.isAnnotationPresent(annoClazz)) {
+            if (method.isAnnotationPresent(annoClazz)) {
                 methods.add(method);
-                }
-          }
+            }
+        }
         return methods;
     }
 
