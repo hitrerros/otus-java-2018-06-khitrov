@@ -30,7 +30,7 @@ public class MemoryMain {
 
         System.out.println("---Filled container grow");
 
-        for (int i = 1; i<= 10; i++) {
+        for (int i = 1; i <= 10; i++) {
             final int c = i;
             System.out.println("elements: " + c);
             memoryCalc.calculate(() -> new ArrayList<Integer>(c));
