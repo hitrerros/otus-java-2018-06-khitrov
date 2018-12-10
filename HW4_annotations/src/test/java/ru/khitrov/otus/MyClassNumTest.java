@@ -7,20 +7,20 @@ import ru.khitrov.otus.annotations.Test;
 public class MyClassNumTest {
 
     @Before
-    public void beforeStart()  {
+    public void beforeStart() {
         System.out.println("before Test just number  ");
     }
 
     @Test
-    public void testIssue1()   {
+    public void testIssue1() {
         MyClassNum myClassNum = new MyClassNum();
-        TUnitCore.assertEquals(  3, myClassNum.getNumber() );
+        TUnitCore.assertEquals(3, myClassNum.getNumber());
         System.out.println("OK!");
     }
 
     @After
-    public void afterEndOfTest()  {
-        System.out.println("end of test just number = " );
+    public void afterEndOfTest() {
+        System.out.println("end of test just number = ");
     }
 
 
