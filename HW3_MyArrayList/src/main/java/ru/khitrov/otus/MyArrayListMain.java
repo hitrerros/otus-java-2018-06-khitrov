@@ -25,15 +25,15 @@ public class MyArrayListMain {
 
         for (int i = 0; i < 11; i++) {
             srcList.add(i);
-            dstList.add(i*2);
+            dstList.add(i * 2);
         }
         System.out.println("before:");
         dstList.stream().forEach(System.out::println);
 
-        Collections.copy( dstList, srcList );
+        Collections.copy(dstList, srcList);
 
         System.out.println("after:");
-        if  (!dstList.isEmpty()) {
+        if (!dstList.isEmpty()) {
             dstList.stream().forEach(System.out::println);
         }
 

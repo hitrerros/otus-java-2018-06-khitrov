@@ -3,7 +3,7 @@ package ru.khitrov.otus;
 import java.util.*;
 import java.util.function.Consumer;
 
-public class MyArrayList <T> implements List<T>  {
+public class MyArrayList<T> implements List<T> {
 
 
     protected Object[] elementData; // non-private to simplify nested class access
@@ -44,9 +44,9 @@ public class MyArrayList <T> implements List<T>  {
     /**
      * Constructs an empty list with the specified initial capacity.
      *
-     * @param  initialCapacity  the initial capacity of the list
+     * @param initialCapacity the initial capacity of the list
      * @throws IllegalArgumentException if the specified initial capacity
-     *         is negative
+     *                                  is negative
      */
     public MyArrayList(int initialCapacity) {
         if (initialCapacity > 0) {
@@ -54,11 +54,10 @@ public class MyArrayList <T> implements List<T>  {
         } else if (initialCapacity == 0) {
             this.elementData = DEFAULTCAPACITY_EMPTY_ELEMENTDATA;
         } else {
-            throw new IllegalArgumentException("Illegal Capacity: "+
+            throw new IllegalArgumentException("Illegal Capacity: " +
                     initialCapacity);
         }
     }
-
 
 
     /**
@@ -111,8 +110,6 @@ public class MyArrayList <T> implements List<T>  {
     }
 
 
-
-
     @Override
     public int size() {
         return size;
@@ -121,7 +118,7 @@ public class MyArrayList <T> implements List<T>  {
     @Override
     public boolean isEmpty() {
         return size == 0;
-      }
+    }
 
     @Override
     public boolean contains(Object o) {
@@ -132,7 +129,7 @@ public class MyArrayList <T> implements List<T>  {
 
 
     @SuppressWarnings("unchecked")
-    private class Itr implements ListIterator<T>{
+    private class Itr implements ListIterator<T> {
 
         private int currentIndex = 0;
         int lastRet = -1; // index of last element returned; -1 if no such
@@ -150,7 +147,7 @@ public class MyArrayList <T> implements List<T>  {
 
         @Override
         public boolean hasPrevious() {
-             return currentIndex != 0;
+            return currentIndex != 0;
         }
 
         @Override
@@ -201,7 +198,7 @@ public class MyArrayList <T> implements List<T>  {
             Objects.requireNonNull(action);
             int i = currentIndex;
 
-            for (;i < size; i++){
+            for (; i < size; i++) {
                 action.accept(elementAt(elementData, i));
             }
 
@@ -213,7 +210,7 @@ public class MyArrayList <T> implements List<T>  {
     @Override
     @SuppressWarnings("unchecked")
     public Iterator<T> iterator() {
-        return (Iterator <T>) new  Itr();
+        return (Iterator<T>) new Itr();
     }
 
 
@@ -274,7 +271,7 @@ public class MyArrayList <T> implements List<T>  {
 
     @Override
     public boolean removeAll(Collection<?> c) {
-  //      return false;
+        //      return false;
         throw new RuntimeException();
 
     }
@@ -292,7 +289,7 @@ public class MyArrayList <T> implements List<T>  {
     }
 
     @SuppressWarnings("unchecked")
-     private T elementData(int index) {
+    private T elementData(int index) {
         return (T) elementData[index];
     }
 
@@ -325,7 +322,7 @@ public class MyArrayList <T> implements List<T>  {
 
     @Override
     public int indexOf(Object o) {
- //       return 0;
+        //       return 0;
         throw new RuntimeException();
 
     }
@@ -333,11 +330,11 @@ public class MyArrayList <T> implements List<T>  {
     @Override
     public int lastIndexOf(Object o) {
         if (o == null) {
-            for (int i = size-1; i >= 0; i--)
-                if (elementData[i]==null)
+            for (int i = size - 1; i >= 0; i--)
+                if (elementData[i] == null)
                     return i;
         } else {
-            for (int i = size-1; i >= 0; i--)
+            for (int i = size - 1; i >= 0; i--)
                 if (o.equals(elementData[i]))
                     return i;
         }
@@ -347,7 +344,7 @@ public class MyArrayList <T> implements List<T>  {
 
     @Override
     public ListIterator<T> listIterator() {
-        return  new Itr();
+        return new Itr();
 
     }
 
@@ -373,15 +370,14 @@ public class MyArrayList <T> implements List<T>  {
      * @throws NullPointerException {@inheritDoc}
      */
     @Override
-    public void forEach(Consumer<? super T>  action) {
+    public void forEach(Consumer<? super T> action) {
         Objects.requireNonNull(action);
 
         final Object[] es = elementData;
         final int size = this.size;
-        for (int i = 0;  i < size; i++)
+        for (int i = 0; i < size; i++)
             action.accept(elementAt(es, i));
     }
-
 
 
 }
