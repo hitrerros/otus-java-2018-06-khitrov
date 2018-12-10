@@ -2,27 +2,27 @@ import java.lang.ref.SoftReference;
 import java.util.*;
 import java.util.function.Function;
 
-public class  MyCacheEngineImpl <K,V>  implements MyCacheEngine<K,V> {
+public class MyCacheEngineImpl<K, V> implements MyCacheEngine<K, V> {
 
-   Map<K,CacheElement<V>> storage = new LinkedHashMap<>();
-   private static final int TIME_THRESHOLD_MS = 5;
+    Map<K, CacheElement<V>> storage = new LinkedHashMap<>();
+    private static final int TIME_THRESHOLD_MS = 5;
 
 
     private final Timer timer = new Timer();
-    private final int     maxElements;
-    private final long    lifeTimeMs;
-    private final long    idleTimeMs;
+    private final int maxElements;
+    private final long lifeTimeMs;
+    private final long idleTimeMs;
     private final boolean isEternal;
 
     private int hit = 0;
     private int miss = 0;
 
-    MyCacheEngineImpl(int maxElements, long lifeTimeMs, long idleTimeMs, boolean isEternal){
+    MyCacheEngineImpl(int maxElements, long lifeTimeMs, long idleTimeMs, boolean isEternal) {
         this.maxElements = maxElements;
         this.idleTimeMs = idleTimeMs;
         this.lifeTimeMs = lifeTimeMs;
-        this.isEternal  = isEternal;
-     }
+        this.isEternal = isEternal;
+    }
 
     @Override
     public void put(K key, V value) {
@@ -61,10 +61,9 @@ public class  MyCacheEngineImpl <K,V>  implements MyCacheEngine<K,V> {
             } else {
                 miss++;
             }
+        } else {
+            miss++;
         }
-            else {
-                miss++;
-         }
 
         return value;
     }
@@ -89,10 +88,10 @@ public class  MyCacheEngineImpl <K,V>  implements MyCacheEngine<K,V> {
         return new TimerTask() {
             @Override
             public void run() {
-                CacheElement <V> element = storage.get(key);
+                CacheElement<V> element = storage.get(key);
                 if (element == null
                         || element.get() == null
-                        || isT1BeforeT2(timeFunction.apply( element ), System.currentTimeMillis())) {
+                        || isT1BeforeT2(timeFunction.apply(element), System.currentTimeMillis())) {
                     storage.remove(key);
                     this.cancel();
                 }

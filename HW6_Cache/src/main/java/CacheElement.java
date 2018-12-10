@@ -5,11 +5,11 @@ public class CacheElement<T> extends SoftReference<T> {
     private final long creationTime;
     private long lastAccessTime;
 
-      public CacheElement( T ref ) {
-       super ( ref );
-       this.creationTime = getCurrentTime();
-       this.lastAccessTime = getCurrentTime();
-   }
+    public CacheElement(T ref) {
+        super(ref);
+        this.creationTime = getCurrentTime();
+        this.lastAccessTime = getCurrentTime();
+    }
 
     protected long getCurrentTime() {
         return System.currentTimeMillis();

@@ -2,12 +2,12 @@ public class MyClassForTest {
 
     private Integer intVar = 0;
 
-    MyClassForTest(Integer i){
+    MyClassForTest(Integer i) {
         intVar = i;
 
     }
 
-    public Integer getIntVar(){
+    public Integer getIntVar() {
         return intVar;
     }
 

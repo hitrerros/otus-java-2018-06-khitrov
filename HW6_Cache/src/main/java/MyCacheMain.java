@@ -4,14 +4,14 @@ import java.util.List;
 
 public class MyCacheMain {
 
-    public static void main(String ...args) throws  InterruptedException {
+    public static void main(String... args) throws InterruptedException {
 
         int size = 10;
 
-        MyCacheEngine<Integer,MyClassForTest> cacheEngine = new MyCacheEngineImpl<>( size, 100,0,false );
+        MyCacheEngine<Integer, MyClassForTest> cacheEngine = new MyCacheEngineImpl<>(size, 100, 0, false);
 //        MyCacheEngine<Integer,MyClassForTest> cacheEngine = new MyCacheEngineImpl<>( size, 0,0,true );
 
-        for (int i=0; i<size; i++ ){
+        for (int i = 0; i < size; i++) {
             cacheEngine.put(i, new MyClassForTest(i));
         }
 

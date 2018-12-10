@@ -1,4 +1,4 @@
-public interface MyCacheEngine <K, V>  {
+public interface MyCacheEngine<K, V> {
 
     void put(K key, V value);
 
