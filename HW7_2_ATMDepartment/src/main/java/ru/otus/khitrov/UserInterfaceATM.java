@@ -9,7 +9,6 @@ public class UserInterfaceATM {
     private final DeviceATM boxDeviceATM;
     private static final String ATM_COMMANDS = "QBWRH";
 
-
     public UserInterfaceATM(DeviceATM deviceATM) {
         this.boxDeviceATM = deviceATM;
     }
@@ -43,9 +42,7 @@ public class UserInterfaceATM {
                 case 'H':
                     UserInterfaceATM.showHelp();
             }
-
         }
-
     }
 
     private void receiveView() {
@@ -61,7 +58,6 @@ public class UserInterfaceATM {
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
-
     }
 
     private void withdrawalView() {
@@ -79,7 +75,6 @@ public class UserInterfaceATM {
         System.out.println("Balance: " + boxDeviceATM.onShowBalance());
     }
 
-
     public static void showHelp() {
         System.out.println("B - balance");
         System.out.println("R - receive");
@@ -87,6 +82,4 @@ public class UserInterfaceATM {
         System.out.println("Q - quit");
         System.out.println("H - help");
     }
-
-
 }
